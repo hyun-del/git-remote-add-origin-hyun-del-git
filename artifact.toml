@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "과학수사 시뮬레이터"
+version = "1.0.0"
+id = "artifacts/forensic-simulator"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25654
+
+[services.development]
+run = "pnpm --filter @workspace/forensic-simulator run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/forensic-simulator", "run", "build" ]
+publicDir = "artifacts/forensic-simulator/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25654"
+BASE_PATH = "/"
